@@ -19,9 +19,9 @@ namespace Essentials.ManualCompilation.Editor
     {
         #region Constantes
 
-        public const string RECOMPILE_ICON_PATH = "Packages/Manual Compilation/Editor/Manual Compilation/Resources/icon_recompile.psd";
-        public const string RECOMPILE_AND_PLAY_ICON_PATH = "Packages/Manual Compilation/Editor/Manual Compilation/Resources/icon_recompile and play.psd";
-        public const string REFRESH_ICON_PATH = "Packages/Manual Compilation/Editor/Manual Compilation/Resources/icon_refresh.psd";
+        public const string RECOMPILE_ICON_PATH = "Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_recompile.psd";
+        public const string RECOMPILE_AND_PLAY_ICON_PATH = "Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_recompile and play.psd";
+        public const string REFRESH_ICON_PATH = "Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_refresh.psd";
 
         #endregion
 
