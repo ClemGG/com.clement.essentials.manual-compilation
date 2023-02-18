@@ -1,0 +1,16 @@
+{
+    "name": "Clement.Essentials.ManualCompilation.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7a781b6aca6705947ac330916ac30929"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

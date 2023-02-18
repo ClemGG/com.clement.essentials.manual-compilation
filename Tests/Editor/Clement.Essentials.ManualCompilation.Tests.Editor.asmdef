@@ -1,0 +1,20 @@
+{
+    "name": "Clement.Essentials.ManualCompilation.Tests.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7a781b6aca6705947ac330916ac30929",
+        "GUID:8b0dbebc300307b48ad4496dc10bf18d",
+        "GUID:b139ff2bf8532d64aa6c4338339002c6"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,18 @@
+{
+    "name": "Clement.Essentials.ManualCompilation.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7a781b6aca6705947ac330916ac30929"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

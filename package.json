@@ -1,0 +1,16 @@
+{
+  "name": "com.clement.essentials.manual-compilation",
+  "version": "1.0.0",
+  "displayName": "Manual Compilation",
+  "description": "Unity editor tool allowing to compile scripts manually and enter Play mode without reloading the domain.",
+  "unity": "2022.2",
+  "keywords": [
+    "clement",
+    "compilation"
+  ],
+  "author": {
+    "name": "Clement Guichard",
+    "email": "clement.guichard@e-artsup.net",
+    "url": "https://clemgg.github.io/"
+  }
+}
