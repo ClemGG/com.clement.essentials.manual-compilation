@@ -2,7 +2,7 @@
     "name": "Clement.Essentials.ManualCompilation.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:7a781b6aca6705947ac330916ac30929"
+        "GUID:6cdc4867708d90841b12f51ba6dedda7"
     ],
     "includePlatforms": [
         "Editor"
