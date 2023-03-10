@@ -4,9 +4,6 @@
   "displayName": "Manual Compilation",
   "description": "Unity editor tool allowing to compile scripts manually and enter Play mode without reloading the domain.",
   "unity": "2022.2",
-  "dependencies": {
-    "com.clement.essentials.toolbar-extender": "https://github.com/ClemGG/com.clement.essentials.toolbar-extender.git"
-  },
   "keywords": [
     "clement",
     "editor",
