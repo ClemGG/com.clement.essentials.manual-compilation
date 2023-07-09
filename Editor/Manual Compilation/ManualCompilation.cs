@@ -1,13 +1,10 @@
-using UnityEditor;
 #if UNITY_2019_3_OR_NEWER
 using UnityEditor.Compilation;
 #elif UNITY_2017_1_OR_NEWER
  using System.Reflection;
 #endif
-using UnityEngine;
 
 // https://github.com/marijnz/unity-toolbar-extender
-using UnityToolbarExtender;
 
 namespace Essentials.ManualCompilation.Editor
 {
@@ -214,6 +211,14 @@ namespace Essentials.ManualCompilation.Editor
                 // Garde le focus sur l'éditeur
 
                 GUI.FocusWindow(0);
+
+                // Recompile les scripts dans le cas où certains d'entre eux
+                // dépendent de références avec certaines assets
+
+                if (deletedAssets.Length > 0)
+                {
+                    Recompile();
+                }
             }
         }
 
