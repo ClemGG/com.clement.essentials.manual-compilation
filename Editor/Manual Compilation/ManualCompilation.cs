@@ -214,14 +214,6 @@ namespace Essentials.ManualCompilation.Editor
                 // Garde le focus sur l'éditeur
 
                 GUI.FocusWindow(0);
-
-                // Recompile les scripts dans le cas où certains d'entre eux
-                // dépendent de références avec certaines assets
-
-                if (deletedAssets.Length > 0)
-                {
-                    Recompile();
-                }
             }
         }
 
