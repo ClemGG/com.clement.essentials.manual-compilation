@@ -1,10 +1,13 @@
+using UnityEditor;
 #if UNITY_2019_3_OR_NEWER
 using UnityEditor.Compilation;
 #elif UNITY_2017_1_OR_NEWER
  using System.Reflection;
 #endif
+using UnityEngine;
 
 // https://github.com/marijnz/unity-toolbar-extender
+using UnityToolbarExtender;
 
 namespace Essentials.ManualCompilation.Editor
 {
