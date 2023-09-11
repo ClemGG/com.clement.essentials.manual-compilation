@@ -1,10 +1,14 @@
 #if UNITY_2019_3_OR_NEWER
+using UnityEditor;
 using UnityEditor.Compilation;
+using UnityEngine;
+using UnityToolbarExtender;
 #elif UNITY_2017_1_OR_NEWER
  using System.Reflection;
 #endif
 
-namespace XDFramework.Editor
+namespace Essentials.ManualCompilation
+
 {
     /// <summary>
     /// Force l'arrêt de la compilation automatique d'Unity

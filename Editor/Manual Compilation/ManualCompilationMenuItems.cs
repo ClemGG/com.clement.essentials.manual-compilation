@@ -1,9 +1,8 @@
 using System.Collections;
 using System.IO;
-using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 
-namespace XDFramework.Editor
+namespace Essentials.ManualCompilation
 {
     /// <summary>
     /// Affiche les menus de la compilation manuelle 

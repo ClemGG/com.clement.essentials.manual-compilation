@@ -13,5 +13,8 @@
     "name": "Clement Guichard",
     "email": "clement.guichard@e-artsup.net",
     "url": "https://clemgg.github.io/"
+  },
+  "dependencies": {
+    "com.unity.editorcoroutines": "1.0.0",
   }
 }
