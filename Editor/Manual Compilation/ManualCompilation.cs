@@ -1,23 +1,22 @@
-using UnityEditor;
 #if UNITY_2019_3_OR_NEWER
 using UnityEditor.Compilation;
 #elif UNITY_2017_1_OR_NEWER
  using System.Reflection;
 #endif
-using UnityEngine;
 
-// https://github.com/marijnz/unity-toolbar-extender
-using UnityToolbarExtender;
-
-namespace Essentials.ManualCompilation.Editor
+namespace XDFramework.Editor
 {
     /// <summary>
-    /// InitializeOnLoad appelera automatiquement le constructeur quand Unity s'ouvre.
+    /// Force l'arrÃªt de la compilation automatique d'Unity
+    /// et permet de la lancer manuellement.
     /// </summary>
-    [InitializeOnLoad]
     public sealed class ManualCompilation : AssetPostprocessor
     {
         #region Constantes
+
+        /// <summary>
+        /// Les chemins d'accÃ¨s de chaque icÃ´ne
+        /// </summary>
 
         public const string RECOMPILE_ICON_PATH = "Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_recompile.psd";
         public const string RECOMPILE_AND_PLAY_ICON_PATH = "Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_recompile and play.psd";
@@ -27,52 +26,48 @@ namespace Essentials.ManualCompilation.Editor
 
         #region Variables d'instance
 
+        /// <summary>
+        /// Les images des boutons
+        /// </summary>
+
         private static Texture _recompileIcon;
         private static Texture _recompileAndPlayIcon;
         private static Texture _refreshIcon;
 
         #endregion
 
-        #region Constructeurs
-
-        /// <summary>
-        /// Lancé à chaque fois que le script est recompilé
-        /// </summary>
-        static ManualCompilation()
-        {
-            // Empêche la recompilation automatique
-            EditorApplication.LockReloadAssemblies();
-
-            // Par défaut, le bouton Play ne recompile plus les scripts
-            // EditorPrefs.SetBool("kAutoRefresh", false);
-            AssetDatabase.DisallowAutoRefresh();
-
-            EditorSettings.enterPlayModeOptionsEnabled = true;
-#if UNITY_2022_1_OR_NEWER
-            EditorSettings.enterPlayModeOptions = EnterPlayModeOptions.DisableDomainReload | EnterPlayModeOptions.DisableSceneBackupUnlessDirty;
-#elif UNITY_2017_1_OR_NEWER
-            EditorSettings.enterPlayModeOptions = EnterPlayModeOptions.DisableDomainReload;
-#endif
-        }
-
-        /// <summary>
-        /// Lancé quand la classe est collectée par le GC
-        /// </summary>
-        ~ManualCompilation()
-        {
-            // Autorise à nouveau la compilation auto. et recharge auto. des assets 
-
-            EditorApplication.UnlockReloadAssemblies();
-            AssetDatabase.AllowAutoRefresh();
-
-            //Le bouton Play doit à nouveau recharger les domaines
-
-            EditorSettings.enterPlayModeOptionsEnabled = false;
-        }
-
-        #endregion
-
         #region Fonctions publiques
+
+        /// <summary>
+        /// Active ou non le rafraÃ®chissement des assets quand la compilation
+        /// est manuelle ou non
+        /// </summary>
+        /// <param name="enableManualCompilation"><see langword="true"/> si la compilation est manuelle, <see langword="false"/> sinon</param>
+        public static void SetCompilationState(bool enableManualCompilation)
+        {
+            if (enableManualCompilation)
+            {
+                // EmpÃªche la recompilation automatique
+
+                EditorApplication.LockReloadAssemblies();
+                AssetDatabase.DisallowAutoRefresh();
+
+                EditorSettings.enterPlayModeOptionsEnabled = true;
+                EditorSettings.enterPlayModeOptions = EnterPlayModeOptions.DisableDomainReload;
+            }
+            else
+            {
+                // Autorise Ã  nouveau la compilation auto. et recharge auto. des assets 
+
+                EditorApplication.UnlockReloadAssemblies();
+                AssetDatabase.AllowAutoRefresh();
+                AssetDatabase.Refresh();
+
+                // Le bouton Play doit Ã  nouveau recharger les domaines
+
+                EditorSettings.enterPlayModeOptionsEnabled = false;
+            }
+        }
 
         /// <summary>
         /// Recompile les scripts manuellement
@@ -107,7 +102,7 @@ namespace Essentials.ManualCompilation.Editor
         }
 
         /// <summary>
-        /// Permet de rafraîchir les assets de l'onglet Project
+        /// Permet de rafraÃ®chir les assets de l'onglet Project
         /// </summary>
         public static void RefreshAssets()
         {
@@ -117,14 +112,21 @@ namespace Essentials.ManualCompilation.Editor
 
         #endregion
 
-        #region Fonctions privées
+        #region Fonctions privÃ©es
 
         /// <summary>
-        /// S'abonne au ToolbarExtender pour créer des boutons
-        /// à côté des boutons du mode Play
+        /// S'abonne au ToolbarExtender pour crÃ©er des boutons
+        /// Ã  cÃ´tÃ© des boutons du mode Play
         /// </summary>
         private static void OnToolbarGUI()
         {
+            bool manualCompilationEnabled = EditorPrefs.GetBool(ManualCompilationMenuItems.ENABLE_MANUAL_COMPILATION_PATH);
+
+            if (!manualCompilationEnabled)
+            {
+                return;
+            }
+
             GUILayout.FlexibleSpace();
 
             if (EditorApplication.isCompiling)
@@ -152,7 +154,7 @@ namespace Essentials.ManualCompilation.Editor
                 }
             }
 
-            // Recompile et lance le jeu (le bouton Play par défaut ne recompilera pas les scripts)
+            // Recompile et lance le jeu (le bouton Play par dÃ©faut ne recompilera pas les scripts)
 
             if (GUILayout.Button(new GUIContent(_recompileAndPlayIcon, "Recompile And Play"), EditorStyles.toolbarButton, GUILayout.Width(30)))
             {
@@ -168,7 +170,7 @@ namespace Essentials.ManualCompilation.Editor
         }
 
         /// <summary>
-        /// Appelée quand les scripts sont recompilés
+        /// AppelÃ©e quand les scripts sont recompilÃ©s
         /// </summary>
         private static void OnCompileAndPlayFinished(object obj)
         {
@@ -177,41 +179,41 @@ namespace Essentials.ManualCompilation.Editor
         }
 
         /// <summary>
-        /// Appelée quand les scripts sont recompilés
-        /// ou quand les assets sont réimportées
+        /// AppelÃ©e quand les scripts sont recompilÃ©s
+        /// ou quand les assets sont rÃ©importÃ©es
         /// </summary>
-        /// <param name="importedAssets">Les assets importées</param>
-        /// <param name="deletedAssets">Les assets supprimées</param>
-        /// <param name="movedAssets">Les assets déplacées</param>
-        /// <param name="movedFromAssetPaths">Les emplacements d'origine des assets importées</param>
-        /// <param name="didDomainReload">Indique si les scripts ont été recompilés</param>
+        /// <param name="importedAssets">Les assets importÃ©es</param>
+        /// <param name="deletedAssets">Les assets supprimÃ©es</param>
+        /// <param name="movedAssets">Les assets dÃ©placÃ©es</param>
+        /// <param name="movedFromAssetPaths">Les emplacements d'origine des assets importÃ©es</param>
+        /// <param name="didDomainReload">Indique si les scripts ont Ã©tÃ© recompilÃ©s</param>
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths, bool didDomainReload)
         {
-            // Charge les icônes
+            // Charge les icÃ´nes
 
             if (_recompileIcon == null)
             {
-                _recompileIcon = EditorGUIUtility.Load(RECOMPILE_ICON_PATH) as Texture;
-                _recompileAndPlayIcon = EditorGUIUtility.Load(RECOMPILE_AND_PLAY_ICON_PATH) as Texture;
-                _refreshIcon = EditorGUIUtility.Load(REFRESH_ICON_PATH) as Texture;
+                _recompileIcon = Resources.Load<Texture>(RECOMPILE_ICON_PATH);
+                _recompileAndPlayIcon = Resources.Load<Texture>(RECOMPILE_AND_PLAY_ICON_PATH);
+                _refreshIcon = Resources.Load<Texture>(REFRESH_ICON_PATH);
             }
 
             if (didDomainReload)
             {
                 // Extension pour ajouter des boutons dans la Toolbar d'Unity
-                // avant ou après les boutons pour lancer le mode Play
+                // avant ou aprÃ¨s les boutons pour lancer le mode Play
 
                 ToolbarExtender.LeftToolbarGUI.Add(OnToolbarGUI);
             }
             else
             {
-                // Quand on importe des assets, on débloque la compilation
-                // si des scripts sont importés.
-                // Ca évite de bloquer la compilation manuelle.
+                // Quand on importe des assets, on dÃ©bloque la compilation
+                // si des scripts sont importÃ©s.
+                // Ca Ã©vite de bloquer la compilation manuelle.
 
                 EditorApplication.UnlockReloadAssemblies();
 
-                // Garde le focus sur l'éditeur
+                // Garde le focus sur l'Ã©diteur
 
                 GUI.FocusWindow(0);
             }
