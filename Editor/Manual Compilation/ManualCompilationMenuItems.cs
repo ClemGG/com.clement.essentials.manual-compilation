@@ -1,6 +1,7 @@
 using System.Collections;
 using System.IO;
 using UnityEditor;
+using Unity.EditorCoroutines.Editor;
 
 namespace Essentials.ManualCompilation
 {
