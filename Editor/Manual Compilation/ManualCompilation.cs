@@ -22,9 +22,9 @@ namespace Essentials.ManualCompilation
         /// Les chemins d'accès de chaque icône
         /// </summary>
 
-        public const string RECOMPILE_ICON_PATH = "Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_recompile.psd";
-        public const string RECOMPILE_AND_PLAY_ICON_PATH = "Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_recompile and play.psd";
-        public const string REFRESH_ICON_PATH = "Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_refresh.psd";
+        public const string RECOMPILE_ICON_PATH = "icon_recompile"/*"Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_recompile.psd"*/;
+        public const string RECOMPILE_AND_PLAY_ICON_PATH = "icon_recompile and play"/*"Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_recompile and play.psd"*/;
+        public const string REFRESH_ICON_PATH = "icon_refresh"/*"Packages/com.clement.essentials.manual-compilation/Editor/Manual Compilation/Resources/icon_refresh.psd"*/;
 
         #endregion
 
